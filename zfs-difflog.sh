@@ -53,6 +53,8 @@ zfs=/sbin/zfs
 
 fs_esc=$(echo $filesystem | $sed 's%/%-%g')
 
+set -e
+
 outfile=${outdir}/$(/bin/date "+%Y-%m-%d-%H:%M:%S_${fs_esc}_${snap1}_${snap2}.difflog")
 
 $zfs diff ${filesystem}@${snap1} ${filesystem}@${snap2} > $outfile
