@@ -48,8 +48,11 @@ if [ ! -d $outdir ] ; then
 fi
 
 date=/bin/date
+sed=/usr/bin/sed
 zfs=/sbin/zfs
 
-outfile=${outdir}/$(/bin/date '+%Y-%m-%d-%H:%M:%S-daily.difflog')
+fs_esc=$(echo $filesystem | $sed 's%/%-%g')
+
+outfile=${outdir}/$(/bin/date "+%Y-%m-%d-%H:%M:%S_${fs_esc}_${snap1}_${snap2}.difflog")
 
 $zfs diff ${filesystem}@${snap1} ${filesystem}@${snap2} > $outfile
